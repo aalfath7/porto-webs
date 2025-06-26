@@ -7,4 +7,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  runtimeConfig: {
+    MONGO_URI: process.env.MONGO_URI,
+  },
 });
