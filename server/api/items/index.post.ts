@@ -1,8 +1,20 @@
-import { defineEventHandler, readBody } from "h3";
+import { defineEventHandler } from "h3";
 import formidable from "formidable";
-import { Item } from "~/server/models/Item";
-import { connectDB } from "~/server/database";
 import fs from "fs";
+import { connectDB } from "~/server/database";
+import mongoose from "mongoose";
+
+// Definisikan ulang schema dan model
+const ItemSchema = new mongoose.Schema({
+  title: String,
+  link: String,
+  desc: String,
+  tags: [String],
+  image: String,
+  color: String,
+});
+
+const Item = mongoose.models.Item || mongoose.model("Item", ItemSchema);
 
 export default defineEventHandler(async (event) => {
   await connectDB();
@@ -12,7 +24,7 @@ export default defineEventHandler(async (event) => {
     keepExtensions: true,
   });
 
-  const data = await new Promise<{
+  const { fields, files } = await new Promise<{
     fields: formidable.Fields;
     files: formidable.Files;
   }>((resolve, reject) => {
@@ -21,15 +33,41 @@ export default defineEventHandler(async (event) => {
       resolve({ fields, files });
     });
   });
+  const title = fields.title?.toString() || "";
+  const link = fields.link?.toString() || "";
+  const desc = fields.desc?.toString() || "";
+  const color = fields.color?.toString() || "";
+  let tags: string[] = [];
 
-  const title = data.fields.title?.toString() || "";
-  const link = data.fields.link?.toString() || "";
-  const imageFile: any = data.files.image?.[0] || data.files.image;
+  const rawTags = fields.tags as string | string[] | undefined;
 
+  if (rawTags) {
+    if (Array.isArray(rawTags)) {
+      tags = rawTags.map((t) => String(t).trim());
+    } else {
+      tags = rawTags.split(",").map((t) => t.trim());
+    }
+  }
+
+  // Ambil gambar
+  const imageFile: any = Array.isArray(files.image)
+    ? files.image[0]
+    : files.image;
   const imagePath = `/uploads/${imageFile.newFilename}`;
 
-  const newItem = new Item({ title, link, image: imagePath });
+  // Simpan ke DB
+  const newItem = new Item({
+    title,
+    link,
+    desc,
+    tags,
+    image: imagePath,
+    color,
+  });
   await newItem.save();
 
-  return { message: "Created", item: newItem };
+  return {
+    message: "Item created successfully",
+    item: newItem,
+  };
 });

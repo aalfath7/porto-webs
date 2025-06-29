@@ -243,165 +243,57 @@
           <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <!-- Project 1 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
-            class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+            v-for="item in items"
+            :key="item._id"
+            :class="[
+              'rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-700/50 hover:border-gray-600 transform hover:-translate-y-1',
+              item.color || 'bg-gray-800/80 backdrop-blur-sm',
+            ]"
           >
-            <div class="h-48 overflow-hidden">
+            <div class="h-52 overflow-hidden relative group">
               <img
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                alt="Project 1"
-                class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                :src="item.image"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                alt="Item image"
               />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-transparent to-transparent opacity-80"
+              ></div>
             </div>
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                <h3 class="text-xl font-semibold text-white">
-                  E-commerce Website
+
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold text-xl text-gray-100 line-clamp-2">
+                  {{ item.title }}
                 </h3>
               </div>
-              <p class="text-gray-400 mb-4">
-                A full-featured online store with payment integration, built
-                with Vue.js, Nuxt.js, and Stripe API.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span
-                  class="px-2 py-1 bg-gray-700 text-blue-300 text-xs rounded"
-                  >Vue.js</span
-                >
-                <span
-                  class="px-2 py-1 bg-gray-700 text-blue-300 text-xs rounded"
-                  >Nuxt.js</span
-                >
-                <span
-                  class="px-2 py-1 bg-gray-700 text-blue-300 text-xs rounded"
-                  >Stripe</span
-                >
-              </div>
-              <NuxtLink
-                to="/projects/ecommerce"
-                class="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
-              >
-                View Details
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4 ml-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </NuxtLink>
-            </div>
-          </div>
 
-          <!-- Project 2 -->
-          <div
-            class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
-          >
-            <div class="h-48 overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                alt="Project 2"
-                class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                <h3 class="text-xl font-semibold text-white">Mobile App</h3>
-              </div>
-              <p class="text-gray-400 mb-4">
-                A cross-platform mobile application for task management with
-                real-time sync, built with Flutter and Firebase.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span
-                  class="px-2 py-1 bg-gray-700 text-green-300 text-xs rounded"
-                  >Flutter</span
-                >
-                <span
-                  class="px-2 py-1 bg-gray-700 text-green-300 text-xs rounded"
-                  >Firebase</span
-                >
-                <span
-                  class="px-2 py-1 bg-gray-700 text-green-300 text-xs rounded"
-                  >Dart</span
-                >
-              </div>
-              <NuxtLink
-                to="/projects/mobile-app"
-                class="inline-flex items-center text-green-400 hover:text-green-300 transition-colors"
+              <p
+                class="text-sm text-gray-300/90 mb-3 line-clamp-2 leading-relaxed"
               >
-                View Details
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4 ml-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </NuxtLink>
-            </div>
-          </div>
+                {{ item.desc }}
+              </p>
 
-          <!-- Project 3 -->
-          <div
-            class="bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
-          >
-            <div class="h-48 overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                alt="Project 3"
-                class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            <div class="p-6">
-              <div class="flex items-center mb-3">
-                <div class="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
-                <h3 class="text-xl font-semibold text-white">Dashboard UI</h3>
-              </div>
-              <p class="text-gray-400 mb-4">
-                An analytics dashboard with interactive charts and data
-                visualization, using Tailwind CSS and Chart.js.
-              </p>
               <div class="flex flex-wrap gap-2 mb-4">
                 <span
-                  class="px-2 py-1 bg-gray-700 text-purple-300 text-xs rounded"
-                  >Tailwind CSS</span
+                  v-for="tag in item.tags"
+                  :key="tag"
+                  class="bg-gray-700/60 text-gray-200 text-xs px-3 py-1 rounded-full hover:bg-gray-600 transition-colors"
                 >
-                <span
-                  class="px-2 py-1 bg-gray-700 text-purple-300 text-xs rounded"
-                  >Chart.js</span
-                >
-                <span
-                  class="px-2 py-1 bg-gray-700 text-purple-300 text-xs rounded"
-                  >JavaScript</span
-                >
+                  #{{ tag }}
+                </span>
               </div>
-              <NuxtLink
-                to="/projects/dashboard"
-                class="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
+
+              <a
+                :href="item.link"
+                target="_blank"
+                class="text-blue-400 hover:text-blue-300 text-sm truncate mb-1 transition-colors flex items-center"
               >
-                View Details
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4 ml-1"
+                  class="h-4 w-4 mr-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -410,10 +302,39 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
                   />
                 </svg>
-              </NuxtLink>
+                <span class="truncate">{{ item.link }}</span>
+              </a>
+
+              <div
+                class="mt-4 pt-3 border-t border-gray-700/50 flex justify-between items-center"
+              >
+                <span class="text-xs text-gray-400">{{
+                  new Date().toLocaleDateString()
+                }}</span>
+                <NuxtLink
+                  :to="`/project/${item._id}`"
+                  class="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center"
+                >
+                  View details
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4 ml-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
@@ -422,18 +343,17 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   layout: "page",
 });
 
-// Data personal bisa disesuaikan
 const profile = {
   name: "Farhan Abdillah Alfath",
   role: "Web Developer",
   description:
     "Saya menciptakan pengalaman digital yang indah, fungsional, dan bermakna. Dengan fokus pada desain yang berpusat pada pengguna dan kode yang bersih.",
-  image: "/images/farhan.png", // Ganti dengan path foto Anda
+  image: "/images/farhan.png",
   stats: [
     { value: "3+", label: "Tahun Pengalaman" },
     { value: "50+", label: "Proyek Selesai" },
@@ -441,17 +361,43 @@ const profile = {
   ],
 };
 
+interface Item {
+  _id: string;
+  title: string;
+  link: string;
+  desc: string;
+  tags: string[];
+  image: string;
+  color: string;
+}
+
+const items = ref<Item[]>([]);
+
+const fetchItems = async () => {
+  items.value = await $fetch<Item[]>("/api/items");
+};
+
+const isOpen = ref(false);
+
 const closeMenu = () => {
   isOpen.value = false;
 };
+
+const scrollY = ref(0);
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
     scrollY.value = window.scrollY;
   });
+  fetchItems();
+  window.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key.toLowerCase() === "i") {
+      navigateTo("/ip");
+    }
+  });
 });
 
-const scrollTo = (id) => {
+const scrollTo = (id: any) => {
   const el = document.getElementById(id);
   if (el) {
     const offset = -80; // jika ada navbar fixed tinggi 80px

@@ -37,7 +37,7 @@ const scrollTo = (id) => {
         <!-- Logo dengan efek khusus -->
         <NuxtLink
           to="/"
-          class="flex items-center space-x-2 group"
+          class="flex items-center space-x-2 group cursor-pointer"
           @click="closeMenu"
         >
           <div
@@ -89,7 +89,7 @@ const scrollTo = (id) => {
         <div class="md:hidden flex items-center">
           <button
             @click="toggleMenu"
-            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none transition-all duration-300"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none transition-all duration-300 cursor-pointer"
             aria-label="Main menu"
           >
             <svg
