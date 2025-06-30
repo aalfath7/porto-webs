@@ -86,7 +86,7 @@
                 Lihat Proyek Saya
               </button>
               <NuxtLink
-                to=""
+                to="mailto:abdillahalfath7@gmail.com"
                 class="px-8 py-3 rounded-full font-bold text-white border border-white/20 hover:bg-white/10 transition-all duration-300"
               >
                 Hubungi Saya
@@ -194,7 +194,7 @@
           >
             Saya adalah seorang
             <span class="text-purple-400 font-medium">Web Developer</span>
-            dengan pengalaman lebih dari 3 tahun dalam menciptakan aplikasi web
+            dengan pengalaman lebih dari 2 tahun dalam menciptakan aplikasi web
             yang <span class="text-blue-400 font-medium">responsif</span> dan
             <span class="text-pink-400 font-medium">interaktif</span>. Saya
             berkomitmen untuk memberikan solusi digital yang inovatif dan
@@ -355,9 +355,9 @@ const profile = {
     "Saya menciptakan pengalaman digital yang indah, fungsional, dan bermakna. Dengan fokus pada desain yang berpusat pada pengguna dan kode yang bersih.",
   image: "/images/farhan.png",
   stats: [
-    { value: "3+", label: "Tahun Pengalaman" },
-    { value: "50+", label: "Proyek Selesai" },
-    { value: "100%", label: "Kepuasan Klien" },
+    { value: "2+", label: "Tahun Pengalaman" },
+    { value: "3+", label: "Proyek Selesai" },
+    { value: "80%", label: "Kepuasan Klien" },
   ],
 };
 

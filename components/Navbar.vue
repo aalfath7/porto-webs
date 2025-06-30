@@ -156,12 +156,12 @@ const scrollTo = (id) => {
         >
           Projects
         </button>
-        <button
-          @click="scrollTo('hire-me')"
+        <NuxtLink
+          to="mailto:abdillahalfath7@gmail.com"
           class="block mt-2 mx-3 px-4 py-3 rounded-md text-center text-base font-bold text-white bg-gradient-to-r from-blue-500 to-sky-500 hover:from-blue-600 hover:to-sky-600 transition-all duration-300"
         >
           Hire Me
-        </button>
+        </NuxtLink>
       </div>
     </div>
   </nav>
