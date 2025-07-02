@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.1.10",
     "@tailwindcss/vite": "^4.1.10",
+    "date-fns": "^4.1.0",
     "formidable": "^3.5.4",
     "mongoose": "^8.16.0",
     "nuxt": "^3.17.5",

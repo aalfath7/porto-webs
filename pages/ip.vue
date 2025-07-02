@@ -148,7 +148,9 @@
 
           <div class="p-5">
             <div class="flex justify-between items-start mb-2">
-              <h3 class="font-bold text-xl text-gray-100 line-clamp-2">
+              <h3
+                class="capitalize font-bold text-xl text-gray-100 line-clamp-2"
+              >
                 {{ item.title }}
               </h3>
               <button
@@ -214,9 +216,6 @@
             <div
               class="mt-4 pt-3 border-t border-gray-700/50 flex justify-between items-center"
             >
-              <span class="text-xs text-gray-400">{{
-                new Date().toLocaleDateString()
-              }}</span>
               <button
                 class="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center"
               >
@@ -245,6 +244,8 @@
 </template>
 
 <script setup lang="ts">
+import { format } from "date-fns";
+
 definePageMeta({
   layout: "page",
 });
@@ -257,6 +258,7 @@ interface Item {
   tags: string[];
   image: string;
   color: string;
+  createdAt: string;
 }
 
 const form = reactive({
@@ -268,51 +270,77 @@ const form = reactive({
 });
 
 const selectedFileName = ref<string | null>(null);
+const fileInput = ref<HTMLInputElement | null>(null);
+const items = ref<Item[]>([]);
+const isSubmitting = ref(false);
+
+const formatDate = (dateString: string) => {
+  return format(new Date(dateString), "MMM d, yyyy");
+};
 
 const handleFileChange = () => {
   const files = fileInput.value?.files;
   selectedFileName.value = files?.[0]?.name || null;
 };
 
-const fileInput = ref<HTMLInputElement | null>(null);
-const items = ref<any[]>([]);
-
 const fetchItems = async () => {
-  items.value = await $fetch<Item[]>("/api/items");
+  try {
+    items.value = await $fetch<Item[]>("/api/items");
+  } catch (error) {
+    console.error("Failed to fetch items:", error);
+  }
 };
 
-const submitForm = async () => {
-  const formData = new FormData();
-  formData.append("title", form.title);
-  formData.append("link", form.link);
-  formData.append("desc", form.desc);
-  formData.append("tags", form.tags); // string dipisahkan koma
-  formData.append("color", form.color);
-
-  if (fileInput.value?.files?.[0]) {
-    formData.append("image", fileInput.value.files[0]);
-  }
-
-  await $fetch("/api/items", {
-    method: "POST",
-    body: formData,
-  });
-
-  // Reset form
+const resetForm = () => {
   form.title = "";
   form.link = "";
   form.desc = "";
   form.tags = "";
   form.color = "";
   if (fileInput.value) fileInput.value.value = "";
-
-  fetchItems();
   selectedFileName.value = null;
 };
 
+const submitForm = async () => {
+  if (isSubmitting.value) return;
+
+  isSubmitting.value = true;
+
+  try {
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("link", form.link);
+    formData.append("desc", form.desc);
+    formData.append("tags", form.tags);
+    formData.append("color", form.color);
+
+    if (fileInput.value?.files?.[0]) {
+      formData.append("image", fileInput.value.files[0]);
+    }
+
+    await $fetch("/api/items", {
+      method: "POST",
+      body: formData,
+    });
+
+    resetForm();
+    await fetchItems();
+  } catch (error) {
+    console.error("Failed to create project:", error);
+  } finally {
+    isSubmitting.value = false;
+  }
+};
+
 const deleteItem = async (id: string) => {
-  await $fetch(`/api/items/${id}`, { method: "DELETE" });
-  fetchItems();
+  if (confirm("Are you sure you want to delete this project?")) {
+    try {
+      await $fetch(`/api/items/${id}`, { method: "DELETE" });
+      await fetchItems();
+    } catch (error) {
+      console.error("Failed to delete item:", error);
+    }
+  }
 };
 
 onMounted(fetchItems);

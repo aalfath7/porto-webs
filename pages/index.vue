@@ -265,7 +265,9 @@
 
             <div class="p-5">
               <div class="flex justify-between items-start mb-2">
-                <h3 class="font-bold text-xl text-gray-100 line-clamp-2">
+                <h3
+                  class="capitalize font-bold text-xl text-gray-100 line-clamp-2"
+                >
                   {{ item.title }}
                 </h3>
               </div>
@@ -311,9 +313,6 @@
               <div
                 class="mt-4 pt-3 border-t border-gray-700/50 flex justify-between items-center"
               >
-                <span class="text-xs text-gray-400">{{
-                  new Date().toLocaleDateString()
-                }}</span>
                 <NuxtLink
                   :to="`/project/${item._id}`"
                   class="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center"
@@ -352,7 +351,7 @@ const profile = {
   name: "Farhan Abdillah Alfath",
   role: "Web Developer",
   description:
-    "Saya menciptakan pengalaman digital yang indah, fungsional, dan bermakna. Dengan fokus pada desain yang berpusat pada pengguna dan kode yang bersih.",
+    "Saya menciptakan pengalaman digital yang fungsional, dan nyaman digunakan, dengan fokus pada kebutuhan pengguna.",
   image: "/images/farhan.png",
   stats: [
     { value: "2+", label: "Tahun Pengalaman" },

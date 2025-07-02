@@ -80,6 +80,7 @@ export default defineEventHandler(async (event) => {
     tags,
     image: imagePath,
     color,
+    createdAt: new Date(),
   });
   await newItem.save();
 
