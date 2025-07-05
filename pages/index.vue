@@ -356,7 +356,6 @@ const profile = {
   stats: [
     { value: "2+", label: "Tahun Pengalaman" },
     { value: "3+", label: "Proyek Selesai" },
-    { value: "80%", label: "Kepuasan Klien" },
   ],
 };
 
